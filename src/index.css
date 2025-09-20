@@ -1,0 +1,273 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&display=swap');
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Oswald', sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  
+.oswald-<uniquifier> {
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 269;
+  font-style: normal;
+}
+
+  body {
+    font-family: 'Oswald', sans-serif;
+    line-height: 1.6;
+    background-color: #000000;
+    color: #ffffff;
+    overflow-x: hidden;
+  }
+
+  /* Custom selection colors */
+  ::selection {
+    background-color: #ef4444;
+    color: #ffffff;
+  }
+
+  ::-moz-selection {
+    background-color: #ef4444;
+    color: #ffffff;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 2px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #000000;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #ef4444;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #dc2626;
+  }
+}
+
+@layer components {
+  /* Minimalist button styles */
+  .btn-minimal {
+    @apply bg-transparent border border-red-500 text-red-500 hover:bg-red-500 hover:text-white font-medium py-3 px-8 text-sm tracking-widest transition-all duration-300 focus:outline-none;
+  }
+
+  .btn-ghost {
+    @apply bg-transparent text-white hover:text-red-400 font-medium py-2 px-4 text-sm tracking-wide transition-colors duration-300 focus:outline-none;
+  }
+
+  /* Cinematic text styles */
+  .text-cinematic {
+    @apply font-light tracking-widest text-gray-300;
+  }
+
+  .text-title {
+    @apply font-bold tracking-widest text-white;
+  }
+
+  .text-accent {
+    @apply text-red-500;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Grayscale utilities */
+  .grayscale-custom {
+    filter: grayscale(100%) contrast(1.2);
+  }
+
+  .grayscale-custom:hover {
+    filter: grayscale(0%) contrast(1);
+  }
+
+  /* Letter spacing utilities */
+  .tracking-ultra-wide {
+    letter-spacing: 0.2em;
+  }
+
+  .tracking-mega-wide {
+    letter-spacing: 0.3em;
+  }
+}
+
+/* Custom animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.8s ease-out forwards;
+}
+
+/* Cinematic glow effects */
+.glow-red {
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+}
+
+.glow-red:hover {
+  box-shadow: 0 0 30px rgba(239, 68, 68, 0.5);
+}
+
+/* Text shadow for cinematic feel */
+.text-shadow-lg {
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+}
+
+.text-shadow-xl {
+  text-shadow: 0 8px 16px rgba(0, 0, 0, 0.9);
+}
+
+/* Backdrop blur for modern glass effect */
+.backdrop-blur-custom {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Custom grid for gallery */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+/* Responsive typography */
+@media (max-width: 640px) {
+  .text-responsive-title {
+    font-size: 3rem;
+    line-height: 1.1;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .text-responsive-title {
+    font-size: 5rem;
+    line-height: 1.1;
+  }
+}
+
+@media (min-width: 1025px) {
+  .text-responsive-title {
+    font-size: 7rem;
+    line-height: 1.1;
+  }
+}
+
+/* Minimal focus styles */
+.focus-minimal:focus {
+  outline: 1px solid #ef4444;
+  outline-offset: 2px;
+}
+
+/* Image overlay effects */
+.image-overlay {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-overlay::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.8) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image-overlay:hover::after {
+  opacity: 1;
+}
+
+/* Cinematic divider */
+.divider-cinematic {
+  height: 1px;
+  background: linear-gradient(to right, transparent, #ef4444, transparent);
+  margin: 2rem 0;
+}
+
+/* Loading animation */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
