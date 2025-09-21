@@ -1,20 +1,20 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useAudio } from '../context/AudioProvider';
 import { motion } from 'framer-motion';
 
 const Home: React.FC = () => {
   const [showThe, setShowThe] = useState(false);
   const [showFlying, setShowFlying] = useState(false);
   const [showSikh, setShowSikh] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
-    const [showGallery, setShowGallery] = useState(false);
-    // Custom gallery images
-    const galleryImages = [
-      '/assets/photo1.jpg',
-      '/assets/photo2.jpg',
-      '/assets/photo3.jpg',
-      '/assets/photo4.jpg',
-    ];
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const [showGallery, setShowGallery] = useState(false);
+  // Custom gallery images
+  const galleryImages = [
+    '/assets/photo1.jpg',
+    '/assets/photo2.jpg',
+    '/assets/photo3.jpg',
+    '/assets/photo4.jpg',
+  ];
+  const { setAudioSrc } = useAudio();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,22 +28,11 @@ const Home: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Play audio when homepage loads
+  // Set home page music
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.play().catch(() => {});
-    }
-  }, []);
-
-  // Toggle mute/unmute
-  const handleMute = () => {
-    setIsMuted(true);
-    if (audioRef.current) audioRef.current.muted = true;
-  };
-  const handleUnmute = () => {
-    setIsMuted(false);
-    if (audioRef.current) audioRef.current.muted = false;
-  };
+    setAudioSrc('/assets/home-theme.mp3');
+    return () => setAudioSrc('');
+  }, [setAudioSrc]);
 
   return (
   <div className="relative min-h-[190vh] bg-black overflow-x-hidden">
@@ -59,15 +48,7 @@ const Home: React.FC = () => {
       {/* Overlay for better text readability */}
       <div className="fixed inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/60 z-10" />
 
-      {/* Background music audio element */}
-      <audio
-        ref={audioRef}
-        src="/bg-music.mp3"
-        autoPlay
-        loop
-        muted={isMuted}
-        style={{ display: 'none' }}
-      />
+      {/* ...audio is now handled globally... */}
 
       {/* Content that scrolls over the poster */}
       <div className="relative z-20">

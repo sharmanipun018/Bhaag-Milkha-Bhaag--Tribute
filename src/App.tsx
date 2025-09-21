@@ -9,8 +9,9 @@ import MenuOverlay from './components/MenuOverlay';
 import Home from './pages/Home';
 import Characters from './pages/Characters';
 import Story from './pages/Story';
-import Gallery from './pages/Gallery';
-import Extras from './pages/Extras';
+import Scenes from './pages/Scenes';
+import Conclusion from './pages/Conclusion';
+import { AudioProvider } from './context/AudioProvider';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -49,31 +50,33 @@ function App() {
   }
 
   return (
-    <Router>
-      <div className="min-h-screen bg-black text-white overflow-x-hidden">
-        <motion.div
-          animate={{ opacity: navbarOpacity }}
-          transition={{ duration: 1.2, ease: 'easeInOut' }}
-          style={{ pointerEvents: navbarOpacity === 0 ? 'none' : 'auto' }}
-        >
-          <Navbar onMenuToggle={() => setMenuOpen(!menuOpen)} />
-        </motion.div>
-        <AnimatePresence mode="wait">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/characters" element={<Characters />} />
-            <Route path="/story" element={<Story />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/extras" element={<Extras />} />
-          </Routes>
-        </AnimatePresence>
-        <Footer />
-        <MenuOverlay 
-          isOpen={menuOpen} 
-          onClose={() => setMenuOpen(false)} 
-        />
-      </div>
-    </Router>
+    <AudioProvider>
+      <Router>
+        <div className="min-h-screen bg-black text-white overflow-x-hidden">
+          <motion.div
+            animate={{ opacity: navbarOpacity }}
+            transition={{ duration: 1.2, ease: 'easeInOut' }}
+            style={{ pointerEvents: navbarOpacity === 0 ? 'none' : 'auto' }}
+          >
+            <Navbar onMenuToggle={() => setMenuOpen(!menuOpen)} />
+          </motion.div>
+          <AnimatePresence mode="wait">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/characters" element={<Characters />} />
+              <Route path="/story" element={<Story />} />
+              <Route path="/scenes" element={<Scenes />} />
+              <Route path="/conclusion" element={<Conclusion />} />
+            </Routes>
+          </AnimatePresence>
+          <Footer />
+          <MenuOverlay 
+            isOpen={menuOpen} 
+            onClose={() => setMenuOpen(false)} 
+          />
+        </div>
+      </Router>
+    </AudioProvider>
   );
 }
 

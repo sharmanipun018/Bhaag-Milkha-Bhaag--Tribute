@@ -13,8 +13,8 @@ const MenuOverlay: React.FC<MenuOverlayProps> = ({ isOpen, onClose }) => {
     { path: '/', label: 'HOME' },
     { path: '/characters', label: 'CHARACTERS' },
     { path: '/story', label: 'STORY' },
-    { path: '/gallery', label: 'GALLERY' },
-    { path: '/extras', label: 'EXTRAS' },
+    { path: '/scenes', label: 'SCENES' },
+    { path: '/conclusion', label: 'CONCLUSION' },
   ];
 
   return (

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useAudio } from '../context/AudioProvider';
 import { motion } from 'framer-motion';
 
 const Characters: React.FC = () => {
@@ -7,31 +8,43 @@ const Characters: React.FC = () => {
       name: 'MILKHA SINGH',
       actor: 'FARHAN AKHTAR',
       role: 'THE FLYING SIKH',
-      image: 'https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=600',
+      image: '/assets/character1.jpg',
       description: 'The legendary Indian track and field sprinter who overcame tremendous odds to become one of India\'s greatest athletes.'
     },
     {
       name: 'NIRMAL KAUR',
       actor: 'SONAM KAPOOR',
       role: 'THE LOVE',
-      image: 'https://images.pexels.com/photos/1080213/pexels-photo-1080213.jpeg?auto=compress&cs=tinysrgb&w=600',
+      image: '/assets/character2.jpg',
       description: 'A strong-willed woman who becomes Milkha\'s emotional anchor and inspiration.'
     },
     {
       name: 'COACH RANVEER',
       actor: 'PAVAN MALHOTRA',
       role: 'THE MENTOR',
-      image: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=600',
+      image: '/assets/character3.jpg',
       description: 'The dedicated coach who recognizes Milkha\'s potential and shapes him into a champion.'
     },
     {
       name: 'YOUNG MILKHA',
       actor: 'JAPTEJ SINGH',
       role: 'THE BEGINNING',
-      image: 'https://images.pexels.com/photos/1031588/pexels-photo-1031588.jpeg?auto=compress&cs=tinysrgb&w=600',
+      image: '/assets/character4.jpg',
       description: 'The young boy who witnesses the partition of India and loses his family.'
     }
   ];
+
+
+  // Responsive grid: 2 columns on md+
+  // On hover, expand hovered card, shrink adjacent
+  // Card width: default 50%, hovered 65%, adjacent 35%
+  // On mobile, fallback to stacking
+  const { setAudioSrc } = useAudio();
+
+  useEffect(() => {
+    setAudioSrc('/assets/characters-theme.mp3');
+    return () => setAudioSrc('');
+  }, [setAudioSrc]);
 
   return (
     <motion.div
@@ -54,43 +67,27 @@ const Characters: React.FC = () => {
           <div className="w-24 h-px bg-red-500 mx-auto"></div>
         </motion.div>
 
-        {/* Characters Grid */}
-        <div className="grid md:grid-cols-2 gap-16">
+        {/* Characters Grid - 2x2, aesthetic card styling */}
+  <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-1 md:gap-y-8 gap-4">
           {characters.map((character, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ y: 100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.4 + index * 0.2 }}
-              className="group"
+              className="group bg-black rounded-3xl overflow-hidden flex flex-col justify-end shadow-2xl border-0 min-h-[350px] md:min-h-[400px] w-full md:w-[85%] transition-transform duration-300"
             >
-              <div className="relative overflow-hidden bg-gray-900">
-                <div className="aspect-[3/4] overflow-hidden">
-                  <img
-                    src={character.image}
-                    alt={character.name}
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
-                  />
-                </div>
-                
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
-                
-                <div className="absolute bottom-0 left-0 right-0 p-8">
-                  <h3 className="text-2xl font-bold text-white tracking-wider mb-2">
+              <div className="relative w-full h-[400px] md:h-[450px]">
+                <img
+                  src={character.image}
+                  alt={character.name}
+                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 rounded-3xl"
+                />
+                {/* Name overlay, only visible on hover */}
+                <div className="absolute bottom-0 left-0 right-0 flex items-center justify-center h-20 md:h-24 bg-black/70 rounded-b-3xl">
+                  <span className="text-3xl md:text-4xl font-extrabold text-red-500 tracking-widest" style={{ fontFamily: 'Oswald, sans-serif', letterSpacing: '0.08em' }}>
                     {character.name}
-                  </h3>
-                  <p className="text-red-400 font-medium tracking-wide mb-1">
-                    {character.actor}
-                  </p>
-                  <p className="text-sm text-gray-400 tracking-wide mb-4">
-                    {character.role}
-                  </p>
-                  <p className="text-sm text-gray-300 leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    {character.description}
-                  </p>
+                  </span>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 

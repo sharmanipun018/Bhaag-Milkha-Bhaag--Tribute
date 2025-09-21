@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useAudio } from '../context/AudioProvider';
 import { motion } from 'framer-motion';
 
 const Story: React.FC = () => {
@@ -24,6 +25,13 @@ const Story: React.FC = () => {
       content: 'The 1960 Rome Olympics represented both triumph and heartbreak. Milkha finished 4th in the 400m final, missing a medal by a whisker. This near-miss became his greatest regret, but his performance inspired millions of Indians.'
     }
   ];
+
+  const { setAudioSrc } = useAudio();
+
+  useEffect(() => {
+    setAudioSrc('/assets/story-theme.mp3');
+    return () => setAudioSrc('');
+  }, [setAudioSrc]);
 
   return (
     <motion.div

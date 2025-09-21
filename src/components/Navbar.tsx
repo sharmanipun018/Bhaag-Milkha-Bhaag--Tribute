@@ -1,33 +1,18 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
+import { useAudio } from '../context/AudioProvider';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Menu, Volume2, VolumeX } from 'lucide-react';
+// import { Menu, Volume2, VolumeX } from 'lucide-react';
 
 interface NavbarProps {
   onMenuToggle: () => void;
 }
 
 const Navbar: React.FC<NavbarProps> = ({ onMenuToggle }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const { muted, toggleMute } = useAudio();
   const location = useLocation();
 
-  const toggleMusic = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
-
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = 0.3;
-    }
-  }, []);
+  // Audio control is now global
 
   return (
     <motion.nav 
@@ -46,12 +31,12 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuToggle }) => {
           {/* Controls - Top Right */}
           <div className="flex items-center space-x-6">
               <button
-                onClick={toggleMusic}
+                onClick={toggleMute}
                 className="text-white hover:text-red-400 transition-colors text-xl font-medium tracking-wide"
                 aria-label="Toggle music"
-            >
-              {isPlaying ? 'MUTE' : 'UNMUTE'}
-            </button>
+              >
+                {muted ? 'UNMUTE' : 'MUTE'}
+              </button>
             
               <button
                 onClick={onMenuToggle}
@@ -65,7 +50,6 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuToggle }) => {
       </div>
 
       <audio
-        ref={audioRef}
         loop
         preload="auto"
       >
