@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useAudio } from '../context/AudioProvider';
+import React from 'react';
 import { motion } from 'framer-motion';
 
 const Story: React.FC = () => {
@@ -26,12 +25,6 @@ const Story: React.FC = () => {
     }
   ];
 
-  const { setAudioSrc } = useAudio();
-
-  useEffect(() => {
-    setAudioSrc('/assets/story-theme.mp3');
-    return () => setAudioSrc('');
-  }, [setAudioSrc]);
 
   return (
     <motion.div

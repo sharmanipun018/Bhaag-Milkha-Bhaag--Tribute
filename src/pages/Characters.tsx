@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useAudio } from '../context/AudioProvider';
+import React from 'react';
 import { motion } from 'framer-motion';
 
 const Characters: React.FC = () => {
@@ -39,12 +38,6 @@ const Characters: React.FC = () => {
   // On hover, expand hovered card, shrink adjacent
   // Card width: default 50%, hovered 65%, adjacent 35%
   // On mobile, fallback to stacking
-  const { setAudioSrc } = useAudio();
-
-  useEffect(() => {
-    setAudioSrc('/assets/characters-theme.mp3');
-    return () => setAudioSrc('');
-  }, [setAudioSrc]);
 
   return (
     <motion.div
@@ -100,7 +93,7 @@ const Characters: React.FC = () => {
           className="text-center mt-32"
         >
           <blockquote className="text-2xl md:text-3xl font-light text-gray-400 italic mb-4 tracking-wide">
-            "I will run like I have never run before."
+            "I will run like I have never run before "
           </blockquote>
           <cite className="text-red-500 text-sm tracking-widest">— MILKHA SINGH</cite>
         </motion.div>

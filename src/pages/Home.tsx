@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useAudio } from '../context/AudioProvider';
 import { motion } from 'framer-motion';
 
 const Home: React.FC = () => {
@@ -14,7 +13,6 @@ const Home: React.FC = () => {
     '/assets/photo3.jpg',
     '/assets/photo4.jpg',
   ];
-  const { setAudioSrc } = useAudio();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,11 +26,6 @@ const Home: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Set home page music
-  useEffect(() => {
-    setAudioSrc('/assets/home-theme.mp3');
-    return () => setAudioSrc('');
-  }, [setAudioSrc]);
 
   return (
   <div className="relative min-h-[190vh] bg-black overflow-x-hidden">

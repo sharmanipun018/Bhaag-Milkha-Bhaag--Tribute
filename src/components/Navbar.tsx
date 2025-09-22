@@ -1,5 +1,4 @@
 import React from 'react';
-import { useAudio } from '../context/AudioProvider';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 // import { Menu, Volume2, VolumeX } from 'lucide-react';
@@ -9,7 +8,7 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ onMenuToggle }) => {
-  const { muted, toggleMute } = useAudio();
+
   const location = useLocation();
 
   // Audio control is now global
@@ -30,18 +29,10 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuToggle }) => {
 
           {/* Controls - Top Right */}
           <div className="flex items-center space-x-6">
-              <button
-                onClick={toggleMute}
-                className="text-white hover:text-red-400 transition-colors text-xl font-medium tracking-wide"
-                aria-label="Toggle music"
-              >
-                {muted ? 'UNMUTE' : 'MUTE'}
-              </button>
-            
-              <button
-                onClick={onMenuToggle}
-                className="text-white hover:text-red-400 transition-colors text-xl font-medium tracking-wide"
-                aria-label="Open menu"
+            <button
+              onClick={onMenuToggle}
+              className="text-white hover:text-red-400 transition-colors text-xl font-medium tracking-wide"
+              aria-label="Open menu"
             >
               MENU
             </button>
@@ -49,12 +40,6 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuToggle }) => {
         </div>
       </div>
 
-      <audio
-        loop
-        preload="auto"
-      >
-        <source src="/assets/theme.mp3" type="audio/mpeg" />
-      </audio>
     </motion.nav>
   );
 };
